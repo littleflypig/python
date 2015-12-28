@@ -1,0 +1,66 @@
+1.新建一个test1.py文件，内容如下：
+"""这是nester.py模块"""
+def print_lol(the_list):
+    """这个函数用于遍历列表"""
+    for each_item in the_list:
+        if isinstance(each_item,list):
+            print_lol(each_item)
+        else:
+            print(each_item)
+
+2.创建test1文件夹，将test1.py文件拷贝进来，并新建setup.py文件，内容如下：
+from distutils.core import setup
+
+setup(
+    name='test1',
+    version='1.0.0',
+    py_modules=['test1'],
+    author='testPython',
+    author_email='xxx@qq.com',
+    url='http://www.headfirstlabs.com',
+    description='A simple printer of test lists',
+    )
+
+3.windows系统中，打开CMD，切换到test1文件夹中，输入python setup.py sdist,构建一个发布文件。
+（请确保windows系统的环境变量中已添加python）
+running sdist
+running check
+warning: sdist: manifest template 'MANIFEST.in' does not exist (using default fi
+le list)
+
+warning: sdist: standard file not found: should have one of README, README.txt
+
+writing manifest file 'MANIFEST'
+creating test1-1.0.0
+making hard links in test1-1.0.0...
+hard linking setup.py -> test1-1.0.0
+hard linking test1.py -> test1-1.0.0
+creating 'dist\test1-1.0.0.zip' and adding 'test1-1.0.0' to it
+adding 'test1-1.0.0\PKG-INFO'
+adding 'test1-1.0.0\setup.py'
+adding 'test1-1.0.0\test1.py'
+removing 'test1-1.0.0' (and everything under it)
+
+
+4.将该发布安装到自己的python本地副本中：输入python setup.py install，这样就把setup.py配置到python类库中。
+running install
+running build
+running build_py
+running install_lib
+copying build\lib\test1.py -> C:\Python34\Lib\site-packages
+byte-compiling C:\Python34\Lib\site-packages\test1.py to test1.cpython-34.pyc
+running install_egg_info
+Writing C:\Python34\Lib\site-packages\test1-1.0.0-py3.4.egg-info
+
+5.在python IDLE（Integration Development Environment集成开发环境）中输入
+import test1，再输入test1.print_lol([1,2,3]),即可看到结果：
+
+>>> import test1
+>>> test1.print_lol([1,2,3])
+1
+2
+3
+
+
+
+
